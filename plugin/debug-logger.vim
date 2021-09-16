@@ -19,17 +19,18 @@ function! s:ExecuteKeepingCursorPosition(command)
   call cursor(l:saved_line, l:saved_column)
 endfunction
 
-function! DebugLog(text, ...)
-  let l:prefix = 'DEBUG LOG'
-  let l:metadata = '['.l:prefix.'] ['.expand('%:t').':'.line('.').']'
-  let l:marker = '==>'
+let s:log_prefix = 'DEBUG LOG'
+let s:log_marker = '==>'
 
+function! DebugLog(text, ...)
   let l:console_stmt = 'console.log("%s %s:", %s);'
   let l:echo_stmt = 'echo "%s %s: ${%s}"'
   let l:lua_print_stmt = 'print("%s %s: "..%s)'
   let l:print_stmt = 'print("%s %s:", %s)'
   let l:puts_stmt = 'puts ("%s %s: #{%s}")'
   let l:sout_stmt = 'System.out.println("%s %s: " + %s);'
+
+  let l:log_metadata = '['.s:log_prefix.'] ['.expand('%:t').':'.line('.').']'
 
   " TODO allow customization
   let l:template_map = {
@@ -55,16 +56,13 @@ function! DebugLog(text, ...)
     return
   endif
 
-  execute "normal o" . printf(l:log_expression, l:metadata.' '.l:marker, a:text, a:text)
+  execute "normal o" . printf(l:log_expression, l:log_metadata.' '.s:log_marker, a:text, a:text)
 endfunction
+
+command! DeleteAllDebugLogs :call s:ExecuteKeepingCursorPosition('g/'.s:log_prefix.'.*'.s:log_marker.'/d')
+
+autocmd User MapActions call MapAction('DebugLog', get(g:, 'debug_logger#keymapping', '<leader>l'))
 
 " TODO
 " CommentAllDebugLogs
-" DeleteAllDebugLogs
 " UncommentAllDebugLogs
-
-if get(g:, 'debug_logger#disable_default_mappings')
-  finish
-endif
-
-autocmd User MapActions call MapAction('DebugLog', '<leader>l')

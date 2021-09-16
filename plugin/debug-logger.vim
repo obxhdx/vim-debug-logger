@@ -23,18 +23,19 @@ let s:log_prefix = 'DEBUG LOG'
 let s:log_marker = '==>'
 
 function! DebugLog(text, ...)
+  let l:bash_echo_stmt = 'echo "%s %s: ${%s}"'
   let l:console_stmt = 'console.log("%s %s:", %s);'
-  let l:echo_stmt = 'echo "%s %s: ${%s}"'
   let l:lua_print_stmt = 'print("%s %s: "..%s)'
   let l:print_stmt = 'print("%s %s:", %s)'
   let l:puts_stmt = 'puts ("%s %s: #{%s}")'
   let l:sout_stmt = 'System.out.println("%s %s: " + %s);'
+  let l:vim_echo_stmt = 'echo "%s %s: ".%s'
 
   let l:log_metadata = '['.s:log_prefix.'] ['.expand('%:t').':'.line('.').']'
 
   " TODO allow customization
   let l:template_map = {
-        \ 'bash': l:echo_stmt,
+        \ 'bash': l:bash_echo_stmt,
         \ 'java': l:sout_stmt,
         \ 'javascript': l:console_stmt,
         \ 'javascript.jsx': l:console_stmt,
@@ -42,11 +43,12 @@ function! DebugLog(text, ...)
         \ 'lua': l:lua_print_stmt,
         \ 'python': l:print_stmt,
         \ 'ruby': l:puts_stmt,
-        \ 'sh': l:echo_stmt,
+        \ 'sh': l:bash_echo_stmt,
         \ 'typescript': l:console_stmt,
         \ 'typescript.jsx': l:console_stmt,
         \ 'typescriptreact': l:console_stmt,
-        \ 'zsh': l:echo_stmt,
+        \ 'vim': l:vim_echo_stmt,
+        \ 'zsh': l:bash_echo_stmt,
         \ }
 
   let l:log_expression = get(l:template_map, &ft, '')

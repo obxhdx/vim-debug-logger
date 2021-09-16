@@ -61,10 +61,12 @@ function! DebugLog(text, ...)
   execute "normal o" . printf(l:log_expression, l:log_metadata.' '.s:log_marker, a:text, a:text)
 endfunction
 
-command! DeleteAllDebugLogs :call s:ExecuteKeepingCursorPosition('g/'.s:log_prefix.'.*'.s:log_marker.'/d')
+au FileType * let b:comment_string = escape(substitute(&commentstring, '%s', '', ''), '/')
+
+let s:all_debug_logs = s:log_prefix . '.*' . s:log_marker
 
 autocmd User MapActions call MapAction('DebugLog', get(g:, 'debug_logger#keymapping', '<leader>l'))
 
-" TODO
-" CommentAllDebugLogs
-" UncommentAllDebugLogs
+command! CommentAllDebugLogs    :call s:ExecuteKeepingCursorPosition('%s/^\(.*' . s:all_debug_logs . '.*\)/' . b:comment_string . ' \1/g')
+command! DeleteAllDebugLogs     :call s:ExecuteKeepingCursorPosition('g/' . s:all_debug_logs . '/d')
+command! UncommentAllDebugLogs  :call s:ExecuteKeepingCursorPosition('%s/^' . b:comment_string . ' //g')

@@ -25,4 +25,4 @@ This plugin has a dependency on [obxhdx/vim-action-mapper](https://github.com/ob
 
 ## Usage
 
-See [documentation](https://github.com/obxhdx/vim-debug-logger).
+See [documentation](https://github.com/obxhdx/vim-debug-logger/blob/main/doc/debug-logger.txt).

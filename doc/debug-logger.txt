@@ -1,0 +1,36 @@
+*debug-logger.txt*  Debug logging made easy.
+
+COMMANDS                                   *debug-logger-commands*
+
+:CommentAllDebugLogs                       *:CommentAllDebugLogs*
+
+	Comments all debug logs.
+
+:UncommentAllDebugLogs                     *:UncommentAllDebugLogs*
+
+	Uncomments all debug logs.
+
+:DeleteAllDebugLogs                        *:DeleteAllDebugLogs*
+
+	Deletes all debug logs.
+
+OPTIONS                                     *debug-logger-options*
+
+g:debug_logger#keymapping                   *g:debug_logger#keymapping*
+
+	Defines which key mapping will be used.
+
+	Default: <leader>l
+
+g:debug_logger#template_map                 *g:debug_logger#template_map*
+
+	Allows customization or addition of new file types. This will be merged with
+	the list of default file types and existing keys will be replaced. Example:
+
+>
+	let g:debug_logger#template_map = {
+		\  'bash': 'echo "%s: ${%s}"'
+		\ }
+<
+
+vim:tw=78:et:ft=help:norl:

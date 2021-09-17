@@ -22,18 +22,17 @@ endfunction
 let s:log_prefix = 'DEBUG LOG'
 let s:log_marker = '==>'
 
-function! DebugLog(text, ...)
-  let l:bash_echo_stmt = 'echo "%s %s: ${%s}"'
-  let l:console_stmt = 'console.log("%s %s:", %s);'
-  let l:lua_print_stmt = 'print("%s %s: "..%s)'
-  let l:print_stmt = 'print("%s %s:", %s)'
-  let l:puts_stmt = 'puts ("%s %s: #{%s}")'
-  let l:sout_stmt = 'System.out.println("%s %s: " + %s);'
-  let l:vim_echo_stmt = 'echo "%s %s: ".%s'
+function! DebugLog(variable_name, ...)
+  let l:bash_echo_stmt = 'echo "%s: ${%s}"'
+  let l:console_stmt = 'console.log("%s:", %s);'
+  let l:lua_print_stmt = 'print("%s: "..%s)'
+  let l:print_stmt = 'print("%s:", %s)'
+  let l:puts_stmt = 'puts ("%s: #{%s}")'
+  let l:sout_stmt = 'System.out.println("%s: " + %s);'
+  let l:vim_echo_stmt = 'echo "%s: ".%s'
 
   let l:log_metadata = '['.s:log_prefix.'] ['.expand('%:t').':'.line('.').']'
 
-  " TODO allow customization
   let l:template_map = {
         \ 'bash': l:bash_echo_stmt,
         \ 'java': l:sout_stmt,
@@ -51,14 +50,17 @@ function! DebugLog(text, ...)
         \ 'zsh': l:bash_echo_stmt,
         \ }
 
-  let l:log_expression = get(l:template_map, &ft, '')
+  call extend(l:template_map, get(g:, 'debug_logger#template_map', {}))
 
-  if empty(l:log_expression)
+  let l:template_string = get(l:template_map, &ft, '')
+
+  if empty(l:template_string)
     call s:PrintError('Filetype "'.&ft.'" not suppported.')
     return
   endif
 
-  execute "normal o" . printf(l:log_expression, l:log_metadata.' '.s:log_marker, a:text, a:text)
+  let l:full_marker = l:log_metadata . ' ' . s:log_marker . ' ' . a:variable_name
+  execute "normal o" . printf(l:template_string, l:full_marker, a:variable_name)
 endfunction
 
 au FileType * let b:comment_string = escape(substitute(&commentstring, '%s', '', ''), '/')

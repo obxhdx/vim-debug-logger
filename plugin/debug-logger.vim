@@ -67,6 +67,6 @@ let s:all_debug_logs = s:log_prefix . '.*' . s:log_marker
 
 autocmd User MapActions call MapAction('DebugLog', get(g:, 'debug_logger#keymapping', '<leader>l'))
 
-command! CommentAllDebugLogs    :call s:ExecuteKeepingCursorPosition('%s/^\(.*' . s:all_debug_logs . '.*\)/' . b:comment_string . ' \1/g')
-command! DeleteAllDebugLogs     :call s:ExecuteKeepingCursorPosition('g/' . s:all_debug_logs . '/d')
-command! UncommentAllDebugLogs  :call s:ExecuteKeepingCursorPosition('%s/^' . b:comment_string . ' //g')
+command! CommentAllDebugLogs    :silent! call s:ExecuteKeepingCursorPosition('%s/^\(.*' . s:all_debug_logs . '.*\)/' . b:comment_string . ' \1/g')
+command! DeleteAllDebugLogs     :silent! call s:ExecuteKeepingCursorPosition('g/' . s:all_debug_logs . '/d')
+command! UncommentAllDebugLogs  :silent! call s:ExecuteKeepingCursorPosition('%s/^' . b:comment_string . ' //g')

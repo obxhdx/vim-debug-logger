@@ -1,6 +1,0 @@
-:CommentAllDebugLogs	debug-logger.txt	/*:CommentAllDebugLogs*
-:DeleteAllDebugLogs	debug-logger.txt	/*:DeleteAllDebugLogs*
-:UncommentAllDebugLogs	debug-logger.txt	/*:UncommentAllDebugLogs*
-debug-logger	debug-logger.txt	/*debug-logger*
-debug-logger-commands	debug-logger.txt	/*debug-logger-commands*
-debug-logger.txt	debug-logger.txt	/*debug-logger.txt*

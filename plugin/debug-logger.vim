@@ -59,8 +59,12 @@ function! DebugLog(variable_name, ...)
     return
   endif
 
-  let l:full_marker = l:log_metadata . ' ' . s:log_marker . ' ' . a:variable_name
-  execute "normal o" . printf(l:template_string, l:full_marker, a:variable_name)
+  try
+    let l:full_marker = l:log_metadata . ' ' . s:log_marker . ' ' . a:variable_name
+    execute "normal o" . printf(l:template_string, l:full_marker, a:variable_name)
+  catch /.*/
+    call s:PrintError('Invalid template: "'.l:template_string.'"')
+  endtry
 endfunction
 
 au FileType * let b:comment_string = escape(substitute(&commentstring, '%s', '', ''), '/')

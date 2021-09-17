@@ -1,5 +1,15 @@
 *debug-logger.txt*  Debug logging made easy.
 
+USAGE                                *debug-logger-usage*
+
+This plugin leverages obxhdx/vim-action-mapper to support text objects and
+text selections.
+
+You can, for example, visually select a variable and press the
+|g:debug_logger_keymapping| to log the visually selected variable. Or press
+|g:debug_logger_keymapping| followed by `iw` to log the variable under the
+cursor.
+
 COMMANDS                                   *debug-logger-commands*
 
 :CommentAllDebugLogs                       *:CommentAllDebugLogs*

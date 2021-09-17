@@ -50,7 +50,7 @@ function! DebugLog(variable_name, ...)
         \ 'zsh': l:bash_echo_stmt,
         \ }
 
-  call extend(l:template_map, get(g:, 'debug_logger#template_map', {}))
+  call extend(l:template_map, get(g:, 'debug_logger_template_map', {}))
 
   let l:template_string = get(l:template_map, &ft, '')
 
@@ -67,7 +67,7 @@ au FileType * let b:comment_string = escape(substitute(&commentstring, '%s', '',
 
 let s:all_debug_logs = s:log_prefix . '.*' . s:log_marker
 
-autocmd User MapActions call MapAction('DebugLog', get(g:, 'debug_logger#keymapping', '<leader>l'))
+autocmd User MapActions call MapAction('DebugLog', get(g:, 'debug_logger_keymapping', '<leader>l'))
 
 command! CommentAllDebugLogs    :silent! call s:ExecuteKeepingCursorPosition('%s/^\(.*' . s:all_debug_logs . '.*\)/' . b:comment_string . ' \1/g')
 command! DeleteAllDebugLogs     :silent! call s:ExecuteKeepingCursorPosition('g/' . s:all_debug_logs . '/d')

@@ -16,19 +16,19 @@ COMMANDS                                   *debug-logger-commands*
 
 OPTIONS                                     *debug-logger-options*
 
-g:debug_logger#keymapping                   *g:debug_logger#keymapping*
+g:debug_logger_keymapping                   *g:debug_logger_keymapping*
 
 	Defines which key mapping will be used.
 
 	Default: <leader>l
 
-g:debug_logger#template_map                 *g:debug_logger#template_map*
+g:debug_logger_template_map                 *g:debug_logger_template_map*
 
 	Allows customization or addition of new file types. This will be merged with
 	the list of default file types and existing keys will be replaced. Example:
 
 >
-	let g:debug_logger#template_map = {
+	let g:debug_logger_template_map = {
 		\  'bash': 'echo "%s: ${%s}"'
 		\ }
 <

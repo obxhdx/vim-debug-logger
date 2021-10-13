@@ -1,6 +1,6 @@
 # vim-debug-logger
 
-Debug logging made easy. Inspired by [Artawower/turbo-log](https://github.com/Artawower/turbo-log).
+Debug logging made easy. Lightly inspired by [Artawower/turbo-log](https://github.com/Artawower/turbo-log).
 
 ## Supported file types
 

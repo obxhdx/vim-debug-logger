@@ -10,20 +10,6 @@ You can, for example, visually select a variable and press the
 |g:debug_logger_keymapping| followed by `iw` to log the variable under the
 cursor.
 
-COMMANDS                                   *debug-logger-commands*
-
-:CommentAllDebugLogs                       *:CommentAllDebugLogs*
-
-	Comments all debug logs.
-
-:UncommentAllDebugLogs                     *:UncommentAllDebugLogs*
-
-	Uncomments all debug logs.
-
-:DeleteAllDebugLogs                        *:DeleteAllDebugLogs*
-
-	Deletes all debug logs.
-
 OPTIONS                                     *debug-logger-options*
 
 g:debug_logger_keymapping                   *g:debug_logger_keymapping*
